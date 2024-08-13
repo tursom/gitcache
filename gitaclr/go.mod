@@ -1,4 +1,4 @@
-module github.com/git-cloner/gitcache/gitacrl
+module github.com/tursom/gitcache/gitacrl
 
 go 1.14
 

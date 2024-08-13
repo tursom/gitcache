@@ -1,4 +1,4 @@
-module github.com/git-cloner/gitcache
+module github.com/tursom/gitcache
 
 go 1.14
 

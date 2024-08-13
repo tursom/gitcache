@@ -1,5 +1,5 @@
 # Gitcache
-[中文说明](https://github.com/git-cloner/gitcache/blob/master/README_cn.md)
+[中文说明](https://github.com/tursom/gitcache/blob/master/README_cn.md)
 
 github.com clone cache
 
@@ -33,7 +33,7 @@ if you use windows,download from https://golang.google.cn/dl/ and install.
 
 ```shell
 #clone
-git clone https://github.com/git-cloner/gitcache
+git clone https://github.com/tursom/gitcache
 cd gitcache
 #linux
 export GO111MODULE=on
@@ -68,9 +68,9 @@ export MYSQL_DSN=dbuser:password@tcp(IP:3306)/dbname
 
 ## usage
 
-git clone http://127.0.0.1:5000/github.com/git-cloner/gitcache
+git clone http://127.0.0.1:5000/github.com/tursom/gitcache
 
-git clone  http://127.0.0.1:5000/github.com/git-cloner/gitcache -b branch
+git clone  http://127.0.0.1:5000/github.com/tursom/gitcache -b branch
 
 ## homepage
 
@@ -78,9 +78,9 @@ and please try https://gitclone.com/
 
 ## client
 
-you can use cgit client. https://github.com/git-cloner/gitcache/releases/download/v0.1/cgit-release.zip
+you can use cgit client. https://github.com/tursom/gitcache/releases/download/v0.1/cgit-release.zip
 
-cgit clone https://github.com/git-cloner/gitcache
+cgit clone https://github.com/tursom/gitcache
 
 ## block chain
 
