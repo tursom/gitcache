@@ -235,15 +235,14 @@ func deferMirrorFromRemote(remote string, local string) bool {
 			log.Printf("process recover: %s\n", err)
 		}
 	}()
-	time.Sleep(time.Duration(60) * time.Second)
 	localExists := mirrorFromRemote(remote, local)
 	if !localExists {
-		time.Sleep(time.Duration(10) * time.Second)
+		time.Sleep(10 * time.Second)
 		BroadCastGitCloneCommandToChain(remote)
 	}
 	go SaveRepsInfoToDb(local)
 	//do remote update at once,support branch (git clone -b)
-	time.Sleep(time.Duration(3) * time.Second)
+	time.Sleep(3 * time.Second)
 	go fetchMirrorFromRemoteUnshallowA(local)
 	return localExists
 }
