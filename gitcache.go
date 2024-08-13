@@ -27,19 +27,27 @@ func parseHttpParams(r *http.Request) HttpParams {
 		panic(err)
 	}
 	str := strings.Split(u.Path, "/")
-	if len(str) < 4 {
+
+	var index int
+	if str[1] == "chromium.googlesource.com" {
+		index = 7
+	} else {
+		index = 4
+	}
+
+	if len(str) < index {
 		panic("bad request params")
 	}
-	_Repository := str[1] + "/" + str[2] + "/" + str[3]
-	var _Gitservice = strings.Replace(u.RawQuery, "service=", "", -1)
+	_Repository := strings.Join(str[1:index], "/")
+	_Gitservice := strings.Replace(u.RawQuery, "service=", "", -1)
 	if _Gitservice == "" {
-		if (strings.Index(str[4], "git") != -1) && (strings.Index(str[4], "pack") != -1) {
-			_Gitservice = str[4]
+		if (strings.Index(str[len(str)-1], "git") != -1) && (strings.Index(str[len(str)-1], "pack") != -1) {
+			_Gitservice = str[len(str)-1]
 		}
 	}
-	_IsInfoReq := (str[4] == "info")
-	var httpParams HttpParams = HttpParams{Repository: _Repository, Gitservice: _Gitservice, IsInfoReq: _IsInfoReq}
-	return httpParams
+	_IsInfoReq := str[index] == "info"
+
+	return HttpParams{Repository: _Repository, Gitservice: _Gitservice, IsInfoReq: _IsInfoReq}
 }
 
 func RequestFromRemote(r *http.Request) *http.Response {
@@ -134,7 +142,7 @@ func fetchMirrorFromRemote(remote string, local string, update string) string {
 	}
 	//args = "-C " + local + " fetch "
 	if update == "" {
-		return execShell("git", []string{"-C", local, "fetch", "--depth=1"})
+		return execShell("git", []string{"-C", local, "fetch"})
 	} else {
 		return execShell("git", []string{"-C", local, "remote", "update"})
 	}
@@ -144,7 +152,7 @@ func cloneMirrorFromRemote(remote string, local string) string {
 	if global_ssh == "1" {
 		remote = strings.Replace(remote, "https://github.com/", "git@github.com:", 1)
 	}
-	result := execShell("git", []string{"clone", "--depth=1", "--mirror", "--progress", remote, local})
+	result := execShell("git", []string{"clone", "--mirror", "--progress", remote, local})
 	modifyConfig(local + "/config") //modify config from https to ssh
 	return result
 }
