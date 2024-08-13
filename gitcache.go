@@ -472,7 +472,7 @@ func RequestHandler(basedir string) http.HandlerFunc {
 				hdrNocache(w)
 				//make mirror fist
 				log.Printf("make mirror from remote : %s %s\n", remote, local)
-				go deferMirrorFromRemote(remote, local)
+				deferMirrorFromRemote(remote, local)
 				//redirect to github.com clone
 				rinetGitRequest(w, r)
 			}
@@ -489,7 +489,7 @@ func RequestHandler(basedir string) http.HandlerFunc {
 				//mirror first,and then redirect
 				//mirror async delay 10 second
 				log.Printf("make mirror from remote : %s %s\n", remote, local)
-				go deferMirrorFromRemote(remote, local)
+				deferMirrorFromRemote(remote, local)
 				//redirect to github.com clone
 				rinetGitRequest(w, r)
 				go Stats("redirect")
